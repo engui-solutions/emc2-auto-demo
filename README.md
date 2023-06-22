@@ -1,6 +1,6 @@
 # Заавар
 
-Энэхүү demo нь Emc2-thirdparty холболт хийх frontend, backend хэсгийг агуулсан болно.
+Энэхүү demo нь Emc2-automation холболт хийх frontend, backend хэсгийг агуулсан болно.
 
 ## Backend
 
@@ -9,7 +9,7 @@ server.js файлд үндсэн backend үйлдлийг жишээ болго
 ### Ажиллуулах:
 
 * `npm` package manager шаардлагатай.
-* Прожектийг клондох `git clone https://github.com/engui-solutions/emc2-thirdparty-demo.git`
+* Прожектийг клондох `git clone https://github.com/engui-solutions/emc2-auto-demo.git`
 * Шаардлагатай санг суулгах `npm install`
 * Ажиллуулах `node server.js`
 * `server.js` файлд өөрийн байгууллын токеныг оруулж өгнө
