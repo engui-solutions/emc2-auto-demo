@@ -12,7 +12,7 @@
         gap: 10px;
         margin: 10px;
         padding: 10px;
-        width: 300px;
+        width: 400px;
         background-color: aqua;
       }
     </style>
@@ -36,8 +36,9 @@
 
       const checkAuto = async () => {
         let serial = document.getElementById('serialNumber').value
+        let deviceId = document.getElementById('deviceId').value
         if (serial.length > 0) {
-          const res = await axios.post('http://localhost:3456/auto/check', { serialId: serial })
+          const res = await axios.post('http://localhost:3456/auto/check', { serialId: serial, deviceId: deviceId })
           console.log(res)
         } else {
           console.log('Талбар дутуу')
@@ -45,27 +46,36 @@
       }
 
       const signAuto = async () => {
-        var fileSel = document.getElementById('fileInput')
+        var fileSel = document.getElementById('fileIn')
         console.log(fileSel.files)
         let serial = document.getElementById('serialNumber').value
+        let deviceId = document.getElementById('deviceId').value
+        let signatureText = document.getElementById('signatureText').value
+        let pageIn = document.getElementById('pageIn').value
+        let xIn = document.getElementById('xIn').value
+        let yIn = document.getElementById('yIn').value
+        let heightIn = document.getElementById('heightIn').value
+        let widthIn = document.getElementById('widthIn').value
         if (fileSel.files.length > 0 && serial.length > 0) {
           let formData = new FormData()
           // Тоон гарын үсэг зурах файл
           formData.append('documentToSign', fileSel.files[0])
           // Тоон гарын үсгийн сериал дугаар
           formData.append('serialId', serial)
+          // Төхөөрөмжийн ID
+          formData.append('deviceId', deviceId)
           // PDF файл дээр харуулах текст
-          formData.append('signatureText', 'Энгүй шийдэл')
+          formData.append('signatureText', signatureText)
           // хуудасны номер
-          formData.append('page', 1)
+          formData.append('page', pageIn)
           // хэвтээ тэнхлэгийн эхлэх цэг
-          formData.append('x', 50)
+          formData.append('x', xIn)
           // босоо тэнхлэгийн эхлэх цэг
-          formData.append('y', 100)
+          formData.append('y', yIn)
           // хэвтээ тэнхлэгийн урт
-          formData.append('width', 200)
+          formData.append('width', widthIn)
           // босоо тэнхлэгийн урт
-          formData.append('height', 80)
+          formData.append('height', heightIn)
 
           const res = await axios.post('http://localhost:3456/auto/sign', formData, {
             headers: {
@@ -82,9 +92,25 @@
       }
     </script>
     <div class="container">
-      <input id="fileInput" type="file" accept="application/pdf">
+      Сериал дугаар:
       <input type="text" id="serialNumber" placeholder="Сериал дугаар">
+      Төхөөрөмжийн ID:
+      <input type="text" id="deviceId" placeholder="Төхөөрөмжийн ID">
       <button onclick="checkAuto()">Шалгах</button>
+      Гарын үсэг зуруулах PDF файл:
+      <input id="fileIn" type="file" accept="application/pdf">
+      Гарын үсэг дээр харуулах текст:
+      <input type="text" id="signatureText">
+      Хуудасны дугаар:
+      <input type="text" id="pageIn">
+      X кординат:
+      <input type="text" id="xIn">
+      Y кординат:
+      <input type="text" id="yIn">
+      Өндөр:
+      <input type="text" id="heightIn">
+      Урт:
+      <input type="text" id="widthIn">
       <button onclick="signAuto()">Зурах</button>
     </div>
   </body>
